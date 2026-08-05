@@ -69,6 +69,8 @@ class TaxEngine:
         v_ipi_unit = (base_ipi / item.quantidade) * (item.ipi_percent / 100.0)
         v_ipi_total = base_ipi * (item.ipi_percent / 100.0)
 
+        print(f"PEÇA: {item.codigo} | Base: {v_base_total} | Frete: {v_frete_total_item} | Base IPI: {base_ipi} | IPI Gerado: {v_ipi_total}")
+
         # 3. ICMS Próprio (Operação Própria)
         base_icms_proprio = v_base_total + v_frete_total_item
         v_icms_proprio = base_icms_proprio * aliq_interestadual
