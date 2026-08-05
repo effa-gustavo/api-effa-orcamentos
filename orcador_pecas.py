@@ -58,14 +58,16 @@ class TaxEngine:
         )
         mva = float(regra_uf.get("MVA", 71.78)) / 100.0
 
-        # 1. Valores Base e IPI
+        # 1. Frete por item (calculado primeiro para compor a base)
+        v_frete_total_item = frete_unitario * item.quantidade
+
+        # 2. Valores Base e IPI (o frete agora integra a base de cálculo do IPI)
         v_base_unit = item.preco_base
         v_base_total = v_base_unit * item.quantidade
-        v_ipi_unit = v_base_unit * (item.ipi_percent / 100.0)
-        v_ipi_total = v_ipi_unit * item.quantidade
-
-        # 2. Frete por item
-        v_frete_total_item = frete_unitario * item.quantidade
+        
+        base_ipi = v_base_total + v_frete_total_item
+        v_ipi_unit = (base_ipi / item.quantidade) * (item.ipi_percent / 100.0)
+        v_ipi_total = base_ipi * (item.ipi_percent / 100.0)
 
         # 3. ICMS Próprio (Operação Própria)
         base_icms_proprio = v_base_total + v_frete_total_item
