@@ -23,7 +23,7 @@ def calcular():
     itens_recebidos = dados.get('itens', [])
     
     total_itens_qtd = sum(i['quantidade'] for i in itens_recebidos)
-    frete_unitario = frete_total / total_itens_qtd if total_itens_qtd > 0 else 0.0
+    frete_unitario = frete_total
     
     resultados = []
     tot_geral = 0.0
